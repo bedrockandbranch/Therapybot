@@ -27,16 +27,17 @@ app.post('/chat', async (req, res) => {
   const userMessage = req.body.message;
 
   try {
-    const response = await openai.createChatCompletion({
-      model: 'gpt-4',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userMessage },
-      ],
-      temperature: 0.7,
-    });
+    const response = await openai.chat.completions.create({
+  model: 'gpt-4',
+  messages: [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: userMessage },
+  ],
+  temperature: 0.7,
+});
 
-    const reply = response.data.choices[0].message.content;
+const reply = response.choices[0].message.content;
+
     res.json({ reply });
   } catch (error) {
     console.error('OpenAI API error:', error);
