@@ -6,7 +6,11 @@ const cors = require('cors');
 const OpenAI = require("openai");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://bedrockandbranch.com",
+  methods: ["POST"],
+  allowedHeaders: ["Content-Type"]
+}));
 app.use(bodyParser.json());
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
